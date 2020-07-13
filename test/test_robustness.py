@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from src.Robustness import Elementary
 from src.maxmin import supermaxmin
 
 
@@ -15,8 +14,25 @@ def robustness(signal, time_range):
 x = np.arange(0, 4 * np.pi, 0.1)  # start,stop,step
 sig = np.cos(x * 5) + np.sin(x)
 
-el = Elementary(sig)
-r = robustness(el, x)
 
-plt.plot(x, r)
-plt.show()
+def and_(phi, ksi):
+    for p, k in zip(phi, ksi):
+        yield min(p, k)
+
+
+def not_(phi):
+    for i in phi:
+        yield -1 * i
+
+
+def or_(phi, ksi):
+    return not_(and_(not_(phi), not_(ksi)))
+
+
+a = [1, 2, 3, 4, 5]
+b = [5, 4, 3, 2, 1]
+
+print(list(not_(a)))
+print(list(and_(a, b)))
+print(list(not_(and_(a, b))))
+print(list(or_(a, b)))

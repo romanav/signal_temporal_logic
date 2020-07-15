@@ -5,12 +5,12 @@ from scipy import signal
 import matplotlib.pyplot as plt
 
 t = np.arange(0, 4 * np.pi, 0.1)
+print(f'signal length: {len(t)}')
 sig = np.sin(t)
 
 # exp = list(not_(feature_(sig - 0.25, (1, 2))))
 exp = list(sat_(sig-0.25))
-print(sig)
-print(exp)
+
 
 plt.plot(range(len(exp)), exp, sig)
 # plt.plot(range(472), exp,  sig)

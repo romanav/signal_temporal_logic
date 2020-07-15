@@ -31,5 +31,5 @@ def feature_(ksi, interval: tuple):
     length = end - start
     max_values, _ = supermaxmin(ksi, length)
 
-    for i in range(start, len(max_values) - start + 1):
+    for i in range(start, len(max_values) - start):
         yield max_values[i]

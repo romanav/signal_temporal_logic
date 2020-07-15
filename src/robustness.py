@@ -20,7 +20,7 @@ def or_(phi, ksi):
     return not_(and_(not_(phi), not_(ksi)))
 
 
-def feature_(ksi, interval: tuple):
+def feature_(ksi, interval: (int, int)):
     """
 
     :param ksi:
@@ -33,3 +33,11 @@ def feature_(ksi, interval: tuple):
 
     for i in range(start, len(max_values) - start):
         yield max_values[i]
+
+
+def until(phi, interval: (int, int), ksi):
+    t = 0
+    start, stop = interval
+    for t_hat in range(t+start, t+stop):
+        for t_hat_hat in range(t, t_hat+1):
+            print(t_hat, t_hat_hat)

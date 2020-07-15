@@ -1,14 +1,19 @@
 from src.maxmin import supermaxmin
 
 
-def and_(phi, ksi):
-    for p, k in zip(phi, ksi):
-        yield min(p, k)
+def sat_(phi):
+    for i in phi:
+        yield i
 
 
 def not_(phi):
     for i in phi:
         yield -1 * i
+
+
+def and_(phi, ksi):
+    for p, k in zip(phi, ksi):
+        yield min(p, k)
 
 
 def or_(phi, ksi):
@@ -26,6 +31,5 @@ def feature_(ksi, interval: tuple):
     length = end - start
     max_values, _ = supermaxmin(ksi, length)
 
-    print(f'max {len(max_values)}')
-    for i in range(start, len(max_values) - start+1):
+    for i in range(start, len(max_values) - start + 1):
         yield max_values[i]

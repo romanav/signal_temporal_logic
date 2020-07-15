@@ -38,21 +38,31 @@ def feature_(ksi, interval: (int, int)):
 def until(phi, interval: (int, int), ksi):
     start, stop = interval
     windows = {}
-    ksi_list = list(ksi)
+    phi_list = list(phi)
     for i in range(stop):
-        _, min_values = supermaxmin(ksi_list, i + 1)
+        _, min_values = supermaxmin(phi_list, i + 1)
         windows[i + 1] = min_values
 
-    z=0
-    for t in range(len(ksi_list)-stop+1):
+    win_val_windows = []
+    for i in range(len(windows[1])):
+        min_val = windows[1][1]
+        for win in windows:
+            if len(windows[win]) <= i:
+                continue
+            current = windows[win][i]
+            if current < min_val:
+                min_val = current
+        win_val_windows.append(min_val)
+
+    for t in range(len(phi_list)-stop+1):
         for t_hat in range(t + start, t + stop):
             for t_hat_hat in range(t, t_hat+1):
                 size = t_hat - t+1
                 window_array = windows[size]
                 min_value = window_array[t]
-                z+=1
 
-    print(z)
+    #
+    # print(z)
 
 
 

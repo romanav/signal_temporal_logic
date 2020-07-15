@@ -36,4 +36,4 @@ def test_until():
 
 
 
-    rb.until(phi, [0, 5], ksi)
+    print(list(rb.until(phi, [0, 3], ksi)))

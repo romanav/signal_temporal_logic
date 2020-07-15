@@ -54,12 +54,22 @@ def until(phi, interval: (int, int), ksi):
                 min_val = current
         win_val_windows.append(min_val)
 
+    ksi_list = list(ksi)
+
     for t in range(len(phi_list)-stop+1):
+        t_list = []
         for t_hat in range(t + start, t + stop):
-            for t_hat_hat in range(t, t_hat+1):
-                size = t_hat - t+1
-                window_array = windows[size]
-                min_value = window_array[t]
+            t_list.append(min(ksi_list[t_hat], win_val_windows[t]))
+        yield max(t_list)
+
+
+
+    # for t in range(len(phi_list)-stop+1):
+    #     for t_hat in range(t + start, t + stop):
+    #         for t_hat_hat in range(t, t_hat+1):
+    #             size = t_hat - t+1
+    #             window_array = windows[size]
+    #             min_value = window_array[t]
 
     #
     # print(z)

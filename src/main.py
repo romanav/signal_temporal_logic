@@ -1,7 +1,6 @@
 import numpy as np
 
 from src.robustness import feature_, not_, sat_
-from scipy import signal
 import matplotlib.pyplot as plt
 
 t = np.arange(0, 4 * np.pi, 0.1)

@@ -43,26 +43,15 @@ def until(phi, interval: (int, int), ksi):
         _, min_values = supermaxmin(phi_list, i + 1)
         windows[i + 1] = min_values
 
-    win_val_windows = []
-    for i in range(len(windows[1])):
-        min_val = windows[1][1]
-        for win in windows:
-            if len(windows[win]) <= i:
-                continue
-            current = windows[win][i]
-            if current < min_val:
-                min_val = current
-        win_val_windows.append(min_val)
+    win_val_windows = get_minimum_in_expanding_windows(windows)
 
     ksi_list = list(ksi)
 
-    for t in range(len(phi_list)-stop+1):
+    for t in range(len(phi_list) - stop + 1):
         t_list = []
-        for t_hat in range(t + start, t + stop):
+        for t_hat in range(t + start, t + stop + 1):
             t_list.append(min(ksi_list[t_hat], win_val_windows[t]))
         yield max(t_list)
-
-
 
     # for t in range(len(phi_list)-stop+1):
     #     for t_hat in range(t + start, t + stop):
@@ -74,9 +63,27 @@ def until(phi, interval: (int, int), ksi):
     #
     # print(z)
 
-
-
     #
     # for t_hat in range(t+start, t+stop):
     #     for t_hat_hat in range(t, t_hat+1):
     #         print(t_hat, t_hat_hat)
+
+
+def get_minimum_in_expanding_windows(windows: dict):
+    to_return = []
+
+    min_length = min(_window_sizes(windows))
+
+    for i in range(min_length):
+        to_return.append(min(_get_index_values_of_windows(windows, i)))
+    return to_return
+
+
+def _get_index_values_of_windows(windows, index):
+    for win_key in windows:
+        yield windows[win_key][index]
+
+
+def _window_sizes(windows):
+    for win_key in windows:
+        yield len(windows[win_key])

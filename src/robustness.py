@@ -45,11 +45,10 @@ def until(phi, interval: (int, int), ksi):
     """
     start, stop = interval
     phi_list = list(phi)
+    ksi_list = list(ksi)
 
     windows = _create_expanding_windows(phi_list, stop)
     win_val_windows = get_minimum_in_expanding_windows(windows)
-
-    ksi_list = list(ksi)
 
     for t in range(len(phi_list) - stop + 1):
         t_list = []

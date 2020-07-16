@@ -33,7 +33,7 @@ def test_feature_zero_window():
 def test_until():
     phi = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     ksi = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-    print(list(rb.until(phi, (2, 3), ksi)))
+    assert list(rb.until(phi, (2, 4), ksi)) == [1, 2, 3, 4, 4, 3, 2]
 
 
 def test_min_expanding_windows():

@@ -36,37 +36,34 @@ def feature_(ksi, interval: (int, int)):
 
 
 def until(phi, interval: (int, int), ksi):
-    start, stop = interval
-    windows = {}
-    phi_list = list(phi)
-    for i in range(stop):
-        _, min_values = supermaxmin(phi_list, i + 1)
-        windows[i + 1] = min_values
+    """
 
+    :param phi:
+    :param interval: [a,b)
+    :param ksi:
+    :return:
+    """
+    start, stop = interval
+    phi_list = list(phi)
+
+    windows = _create_expanding_windows(phi_list, stop)
     win_val_windows = get_minimum_in_expanding_windows(windows)
 
     ksi_list = list(ksi)
 
     for t in range(len(phi_list) - stop + 1):
         t_list = []
-        for t_hat in range(t + start, t + stop + 1):
+        for t_hat in range(t + start, t + stop):
             t_list.append(min(ksi_list[t_hat], win_val_windows[t]))
         yield max(t_list)
 
-    # for t in range(len(phi_list)-stop+1):
-    #     for t_hat in range(t + start, t + stop):
-    #         for t_hat_hat in range(t, t_hat+1):
-    #             size = t_hat - t+1
-    #             window_array = windows[size]
-    #             min_value = window_array[t]
 
-    #
-    # print(z)
-
-    #
-    # for t_hat in range(t+start, t+stop):
-    #     for t_hat_hat in range(t, t_hat+1):
-    #         print(t_hat, t_hat_hat)
+def _create_expanding_windows(phi_list, max_window_size) -> dict:
+    windows = {}
+    for i in range(1, max_window_size):
+        _, min_values = supermaxmin(phi_list, i)
+        windows[i] = min_values
+    return windows
 
 
 def get_minimum_in_expanding_windows(windows: dict):

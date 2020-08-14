@@ -29,7 +29,7 @@ def feature_(ksi, interval: (int, int)):
     """
     start, end = interval
     length = end - start
-    max_values, _ = supermaxmin(ksi, length)
+    max_values, _ = supermaxmin(list(ksi), length)
 
     for i in range(start, len(max_values) - start):
         yield max_values[i]
